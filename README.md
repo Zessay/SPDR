@@ -54,6 +54,10 @@ resolution
 from resolution.common.predictors.bert_span_resolution_predictor import load_model
 
 model_path = "/home/zs261988/models/online/bert4sr_model"
+# 该文件夹下应该包含3个文件
+# model.tar.gz：即训练得到的最佳结果的模型
+# bert_config.json / albert_config.json：即预训练模型的配置文件
+# vocab.txt：即晕训练模型的词表
 
 predictor = load_model(model_path=model_path,
                        predictor_name="bert_span_resolution")
@@ -62,6 +66,9 @@ predictor = load_model(model_path=model_path,
 from resolution.common.predictors.pointer_rewrite_predictor import load_model
 
 model_path = "/home/zs261988/models/online/lstm_lstm_pointer"
+# 该文件夹下包含两个文件
+# vocabulary：即allennlp生成的词表
+# model.tar.gz：即训练得到的最佳结果的模型
 vocab_path = "/home/zs261988/models/online/lstm_lstm_pointer/vocabulary"
 
 predictor = load_model(vocab_path=vocab_path, 
