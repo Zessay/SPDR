@@ -6,14 +6,14 @@ local batch_size=64;
 local bert_lr=3e-5;
 local l1_reg=0.0; // l1正则化系数
 local l2_reg=0.0; // l2正则化系数
-local bert_path="/home/zs261988/models/ptms/bert_rbt3_pytorch/";
-local train_data_path="/home/zs261988/data/rewrite/mask/mask_train.txt";      // 200k数据集  all_data/restore_train.txt   业务数据集：mask/mask_train.txt
-local validation_data_path="/home/zs261988/data/rewrite/mask/mask_val.txt";
+local bert_path="/data/models/ptms/chinese_rbt3_pytorch/";
+local train_data_path="/data/corpus/restoration_200k/mask_train.txt";      // 200k数据集  all_data/restore_train.txt   业务数据集：mask/mask_train.txt
+local validation_data_path="/data/corpus/restoration_200k/mask_val.txt";
 local device=0;
 local model_size=768;  // tiny: 312     base: 768
-local train_nums=35000;  // 229266
+local train_nums=703278;  // 200k_dataset: origin-229266 expand-703278  service data: origin-35000
 local weight_decay=0.0;
-local warmup_steps=547;  // = 35000 / batch_size  64:547  32:1094  all: 3583
+local warmup_steps=10989;  // = 1 epoch   train_nums / batch_size
 local seed=2020;
 
 {

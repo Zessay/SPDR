@@ -62,6 +62,8 @@ class PretrainedChineseBertEmbedder(PretrainedTransformerEmbedder):
                 self.transformer_model = AutoModelWithLMHead.from_pretrained(model_name)
             elif "electra" in postfix:
                 self.transformer_model = ElectraModel.from_pretrained(model_name)
+            elif "chinese" in postfix:
+                self.transformer_model = BertModel.from_pretrained(model_name)
             else:
                 self.transformer_model = AutoModel.from_pretrained(model_name)
 

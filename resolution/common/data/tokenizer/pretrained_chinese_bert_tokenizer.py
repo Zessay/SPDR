@@ -37,7 +37,7 @@ class PretrainedChineseBertTokenizer(PretrainedTransformerTokenizer):
         if postfix.endswith("config.json"):
             model_name = "/".join(model_name.split("/")[:-1])
             postfix = model_name.split("/")[-1]
-        if "bert" in postfix:
+        if "bert" in postfix or "chinese" in postfix:
             self.tokenizer = BertTokenizer.from_pretrained(
                 model_name, add_special_tokens=False, **tokenizer_kwargs)
         elif postfix.startswith("electra"):
