@@ -8,13 +8,13 @@ local attention_lr=1e-4;
 local neg_sample_ratio=0.0;
 local l1_reg=0.0; // l1正则化系数
 local l2_reg=0.0; // l2正则化系数
-local bert_path="/home/zs261988/models/ptms/albert_void_tiny/";
+local bert_path="/home/zs261988/models/ptms/chinese_wwm_pytorch/";
 // -- chinese_bert_wwm_pytorch
 // -- bert_rbt3_pytorch
 // -- albert_tiny_489k
 // -- albert_void_tiny
 local train_data_path="/home/zs261988/data/rewrite/mask/mask_train.txt";    // 200k数据集  all_data/restore_train.txt   业务数据集：mask/mask_train.txt  mask/mask_train_expand.txt
-local validation_data_path="/home/zs261988/data/rewrite/mask/mask_val.txt"; // 200k数据集  all_data/restore_valid.txt   业务数据集：mask/mask_val.txt
+local validation_data_path="/home/zs261988/data/rewrite/mask/mask_valid.txt"; // 200k数据集  all_data/restore_valid.txt   业务数据集：mask/mask_val.txt
 local task_pretrained_file="/home/zs261988/models/mask_resolution/albert_tiny_span_pretrain_mask_and_cls/best.th";
 // 几个预训练模型名称：
 // -- bert_wwm_span_pretrain_cls_and_mask_all_data
