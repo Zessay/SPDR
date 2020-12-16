@@ -2,8 +2,8 @@
 local max_turn_len=5;
 local max_length=256;
 local num_epochs=10;
-local batch_size=64;
-local bert_lr=3e-5;
+local batch_size=16;
+local bert_lr=1e-5;
 local l1_reg=0.0; // l1正则化系数
 local l2_reg=0.0; // l2正则化系数
 local bert_path="/data/models/ptms/chinese_wwm_pytorch/";
@@ -11,9 +11,10 @@ local train_data_path="/data/corpus/restoration_200k/mask_train.txt";      // 20
 local validation_data_path="/data/corpus/restoration_200k/mask_valid.txt";
 local device=0;
 local model_size=768;  // tiny: 312     base: 768
-local train_nums=703278;  // 200k_dataset: origin-229266 expand-703278  service data: origin-35000
+local train_nums=193668;  // 200k_dataset: origin-193668 expand-703278  service data: origin-35000
 local weight_decay=0.0;
-local warmup_steps=10989;  // = 1 epoch   train_nums / batch_size
+local warmup_steps=12105;  // = 1 epoch   train_nums / batch_size
+local num_gradient_accumulation_steps=4;
 local seed=2020;
 
 {
@@ -68,6 +69,7 @@ local seed=2020;
         "patience": 5,
         "grad_norm": 10.0,
         "num_epochs": num_epochs,
-        "validation_metric": "+cls_acc"
+        "validation_metric": "+cls_acc",
+        "num_gradient_accumulation_steps": num_gradient_accumulation_steps
     }
 }

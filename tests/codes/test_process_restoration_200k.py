@@ -100,7 +100,7 @@ def main():
         print(f"当前正在处理文件{file_type}")
         preprocess_restoration_200k(basename, tgt_basename, file_type=file_type)
         if file_type == "train":
-            is_expand = True
+            is_expand = False
         else:
             is_expand = False
         preprocessor.read_and_save(from_file=Path(tgt_basename) / f"{file_type}.txt",
