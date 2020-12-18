@@ -15,7 +15,8 @@ local bert_path="/data/models/ptms/chinese_wwm_pytorch/";
 // -- albert_void_tiny
 local train_data_path="/data/corpus/restoration_200k/mask_train.txt";    // 200k数据集  all_data/restore_train.txt   业务数据集：mask/mask_train.txt  mask/mask_train_expand.txt
 local validation_data_path="/data/corpus/restoration_200k/mask_valid.txt"; // 200k数据集  all_data/restore_valid.txt   业务数据集：mask/mask_val.txt
-local task_pretrained_file="/data/models/spdr/restoration_200k_pretrain/best.th";
+local task_pretrained_file="";
+//local task_pretrained_file="/data/models/spdr/restoration_200k_pretrain/best.th";
 // 几个预训练模型名称：
 // -- bert_wwm_span_pretrain_cls_and_mask_all_data
 // -- bert_wwm_span_pretrain_cls_and_mask_bs

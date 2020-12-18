@@ -1,6 +1,7 @@
 # coding=utf-8
 # @Author: 莫冉
 # @Date: 2020-07-16
+import os
 import logging
 import copy
 from overrides import overrides
@@ -77,7 +78,7 @@ class BertSpanPointerResolution(Model):
         self._initializer(self.end_attention)
 
         # 加载其他任务预训练的模型
-        if task_pretrained_file is not None:
+        if task_pretrained_file is not None and os.path.isfile(task_pretrained_file):
             logger.info("loading related task pretrained weights...")
             self.load_state_dict(torch.load(task_pretrained_file), strict=False)
 

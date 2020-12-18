@@ -1,0 +1,1 @@
+nohup sh run_span_pointer_resolution.sh > bert_wwm_resolution.log 2>&1 &

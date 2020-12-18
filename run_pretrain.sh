@@ -1,0 +1,1 @@
+nohup sh run_span_pretrain.sh > bert_wwm_pretrain.log 2>&1 &
