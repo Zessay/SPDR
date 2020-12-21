@@ -6,6 +6,7 @@ import sys   # NOQA
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))                     # NOQA
 
 import json
+from tqdm.auto import tqdm
 from allennlp.common.file_utils import cached_path
 from resolution.common.data.reader.bert_word_span_resolution_reader import BertWordSpanResolutionReader  # NOQA
 from resolution.common.models import BertSpanPointerResolution                                           # NOQA
@@ -22,7 +23,7 @@ def test_restoration_200k(model_path: str, predictor_name: str,
     instances = []
     predictions = []
     with open(cached_path(file_path), "r", encoding="utf-8") as f:
-        for line in f:
+        for line in tqdm(f):
             # 按顺序分别是context, query, rewrite，以及mask、start和end
             # 最后可能会有一个restore_string
             line_list = line.strip().split("\t\t")
@@ -50,13 +51,15 @@ def test_restoration_200k(model_path: str, predictor_name: str,
             if len(instances) == batch_size:
                 # 将改写的结果保存
                 result = predictor.predict_batch_json(instances)
-                predictions.extend(result["rewrite_results"])
+                for res in result:
+                    predictions.append(res["rewrite_results"])
                 instances = []
 
         # 预测并保存剩余的样本
         if len(instances) > 0:
             result = predictor.predict_batch_json(instances)
-            predictions.extend(result["rewrite_results"])
+            for res in result:
+                predictions.append(res["rewrite_results"])
 
     # 保存预测的结果
     with open(target_file_path, "w", encoding="utf-8") as f:
