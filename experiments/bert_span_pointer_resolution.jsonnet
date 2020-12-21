@@ -8,7 +8,7 @@ local attention_lr=1e-4;
 local neg_sample_ratio=0.0;
 local l1_reg=0.0; // l1正则化系数
 local l2_reg=0.0; // l2正则化系数
-local bert_path="/data/models/ptms/chinese_wwm_pytorch/";
+local bert_path="/data/models/ptms/chinese_roberta_wwm_ext_pytorch/";
 // -- chinese_bert_wwm_pytorch
 // -- bert_rbt3_pytorch
 // -- albert_tiny_489k
@@ -30,7 +30,7 @@ local model_size=768;  // tiny: 312     base: 768
 local train_nums=193668;  // 200k_dataset: origin-193668 expand-703278  service data: origin-35000
 local weight_decay=0.0;
 local warmup_steps=12105;  // = 1 epoch   train_nums / batch_size
-local num_gradient_accumulation_steps=4;
+local num_gradient_accumulation_steps=1;
 local seed=2020;
 
 {

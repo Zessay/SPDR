@@ -14,7 +14,7 @@ utt_1 <\split> utt_2 <\split> utt_3 <\split> utt_4 || utt_5 | restore_tokens (sp
 
 import os
 import sys
-sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../"))
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__))))
 
 import argparse
 from pathlib import Path

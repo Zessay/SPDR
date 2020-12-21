@@ -64,12 +64,12 @@ class TokenBasedBLEU(Metric):
                      reference_row: List[List[str]]) -> Dict[str, float]:
         res = {}
         if '1' in self._mode:
-            bleu_1 = sentence_bleu(reference_row, predicted_row, weights=(1,))
+            bleu_1 = sentence_bleu(reference_row, predicted_row, weights=(1.0, 0.0, 0.0, 0.0))
             res['bleu_1'] = bleu_1
 
         if '2' in self._mode:
             bleu_2 = sentence_bleu(reference_row, predicted_row,
-                                   weights=(0.5, 0.5))
+                                   weights=(0.5, 0.5, 0.0, 0.0))
             res['bleu_2'] = bleu_2
 
         if '4' in self._mode:
