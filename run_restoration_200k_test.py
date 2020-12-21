@@ -70,7 +70,7 @@ def test_restoration_200k(model_path: str, predictor_name: str,
     # 获取最终的评价指标结果
     metrics = predictor._model.get_metrics(reset=True)
 
-    with open(os.path.dirname(target_file_path) / "metrics.json", "w", encoding="utf-8") as f:
+    with open(os.path.join(os.path.dirname(target_file_path), "metrics.json"), "w", encoding="utf-8") as f:
         json.dump(metrics, f, ensure_ascii=False, indent=4)
 
     return metrics
