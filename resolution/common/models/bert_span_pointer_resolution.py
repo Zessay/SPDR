@@ -42,6 +42,7 @@ class BertSpanPointerResolution(Model):
                  index_name: str = "bert",
                  eps: float = 1e-8,
                  seed: int = 42,
+                 loss_factor: float = 0.8,
                  initializer: InitializerApplicator = InitializerApplicator(),
                  regularizer: RegularizerApplicator = None):
         super().__init__(vocab, regularizer)
@@ -73,6 +74,7 @@ class BertSpanPointerResolution(Model):
         self._restore_score = RestorationScore(compute_restore_tokens=True)
         self._metrics = [TokenBasedBLEU(mode="1,2"), TokenBasedROUGE(mode="1r,2r")]
         self._eps = eps
+        self._loss_factor = loss_factor
 
         self._initializer(self.start_attention)
         self._initializer(self.end_attention)
@@ -110,7 +112,8 @@ class BertSpanPointerResolution(Model):
 
         # -- 计算start_loss --
         start_losses = loss_fct(span_start_logits, span_start_label)
-        start_loss = torch.sum(start_losses) / batch_size
+        start_label_weight = self._calc_loss_weight(span_start_label)  # 计算标签的weight
+        start_loss = torch.sum(start_label_weight * start_losses) / batch_size
         # 对loss的值进行检查
         big_constant = min(torch.finfo(start_loss.dtype).max, 1e9)
         if torch.any(start_loss > big_constant):
@@ -121,7 +124,8 @@ class BertSpanPointerResolution(Model):
 
         # -- 计算end_loss --
         end_losses = loss_fct(span_end_logits, span_end_label)
-        end_loss = torch.sum(end_losses) / batch_size
+        end_label_weight = self._calc_loss_weight(span_end_label)   # 计算标签的weight
+        end_loss = torch.sum(end_label_weight * end_losses) / batch_size
         if torch.any(end_loss > big_constant):
             logger.critical("End loss too high (%r)", end_loss)
             logger.critical("span_end_logits: %r", span_end_logits)
@@ -135,6 +139,11 @@ class BertSpanPointerResolution(Model):
 
         loss = span_loss
         return loss
+
+    def _calc_loss_weight(self, label: torch.Tensor):
+        label_mask = (label != 0).to(torch.float16)
+        label_weight = torch.abs(label_mask - self._loss_factor)
+        return label_weight
 
     def _get_rewrite_result(self,
                             use_mask_label: torch.Tensor,
