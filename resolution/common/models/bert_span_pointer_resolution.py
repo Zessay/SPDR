@@ -42,7 +42,7 @@ class BertSpanPointerResolution(Model):
                  index_name: str = "bert",
                  eps: float = 1e-8,
                  seed: int = 42,
-                 loss_factor: float = 0.8,
+                 loss_factor: float = 0.6,
                  initializer: InitializerApplicator = InitializerApplicator(),
                  regularizer: RegularizerApplicator = None):
         super().__init__(vocab, regularizer)
