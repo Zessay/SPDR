@@ -42,7 +42,7 @@ class BertSpanPointerResolution(Model):
                  index_name: str = "bert",
                  eps: float = 1e-8,
                  seed: int = 42,
-                 loss_factor: float = 0.6,
+                 loss_factor: float = 1.0,
                  initializer: InitializerApplicator = InitializerApplicator(),
                  regularizer: RegularizerApplicator = None):
         super().__init__(vocab, regularizer)
@@ -142,7 +142,7 @@ class BertSpanPointerResolution(Model):
 
     def _calc_loss_weight(self, label: torch.Tensor):
         label_mask = (label != 0).to(torch.float16)
-        label_weight = torch.abs(label_mask - self._loss_factor)
+        label_weight = label_mask * self._loss_factor + 1.0
         return label_weight
 
     def _get_rewrite_result(self,
