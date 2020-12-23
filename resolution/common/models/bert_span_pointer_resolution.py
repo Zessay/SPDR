@@ -112,8 +112,8 @@ class BertSpanPointerResolution(Model):
 
         # -- 计算start_loss --
         start_losses = loss_fct(span_start_logits, span_start_label)
-        start_label_weight = self._calc_loss_weight(span_start_label)  # 计算标签的weight
-        start_loss = torch.sum(start_label_weight * start_losses) / batch_size
+        # start_label_weight = self._calc_loss_weight(span_start_label)  # 计算标签的weight
+        start_loss = torch.sum(start_losses) / batch_size
         # 对loss的值进行检查
         big_constant = min(torch.finfo(start_loss.dtype).max, 1e9)
         if torch.any(start_loss > big_constant):
@@ -124,8 +124,8 @@ class BertSpanPointerResolution(Model):
 
         # -- 计算end_loss --
         end_losses = loss_fct(span_end_logits, span_end_label)
-        end_label_weight = self._calc_loss_weight(span_end_label)   # 计算标签的weight
-        end_loss = torch.sum(end_label_weight * end_losses) / batch_size
+        # end_label_weight = self._calc_loss_weight(span_end_label)   # 计算标签的weight
+        end_loss = torch.sum(end_losses) / batch_size
         if torch.any(end_loss > big_constant):
             logger.critical("End loss too high (%r)", end_loss)
             logger.critical("span_end_logits: %r", span_end_logits)
