@@ -29,8 +29,8 @@ local device=0;
 local model_size=768;  // tiny: 312     base: 768
 local train_nums=193668;  // 200k_dataset: origin-193668 expand-703278  service data: origin-35000
 local weight_decay=0.0;
-local warmup_steps=757;  // = 1 epoch   train_nums / batch_size  256--757  16--12105
-local num_gradient_accumulation_steps=16;
+local warmup_steps=12105;  // = 1 epoch   train_nums / batch_size  256--757  16--12105
+local num_gradient_accumulation_steps=1;
 local seed=42;
 local loss_factor=0.5;
 
